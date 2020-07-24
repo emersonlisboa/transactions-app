@@ -1,0 +1,21 @@
+Action Plan - Development
+
+
+22/07
+( X ) Pesquisa dinamica atraves do combo no BD e mostrar na tela
+( X ) Mostrar os indicadores ( Qtde de Lancamentos)
+( X ) Mostrar os indicadores ( Soma de Despesas)
+( X ) Mostrar os indicadores ( Soma de Receitas )
+( X ) Mostrar os indicadores ( Saldo )
+
+24/07
+(  ) Salvar Lancamentos
+(  ) Alterar Lancamentos
+(  ) Excluir Lancamentos
+(  ) Inserir filtro da pesquisa
+(  ) Renomear Arquivos
+(  ) Formatar Codigos
+(  ) Testes 
+(  ) Publicar APP
+(  ) Recarregar Dados no BD
+(  ) Respoder questionário
