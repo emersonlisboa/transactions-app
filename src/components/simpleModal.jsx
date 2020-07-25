@@ -39,12 +39,9 @@ export default function SimpleModal(props) {
 
     const handleOpen = () => {
         setOpen(true);
-
-        alert("desc")
     };
 
     const handleClose = () => {
-        alert("Fechou")
         setOpen(false);
 
     };
@@ -52,9 +49,7 @@ export default function SimpleModal(props) {
     const body = (
         <div style={modalStyle} className={classes.paper}>
             <h1 id="simple-modal-title">Inclusão Lançamento</h1>
-            <SimpleForm desc="teste" />
-
-
+            <SimpleForm />
         </div>
     );
 

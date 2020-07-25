@@ -1,5 +1,6 @@
 import http from '../uteis/http-common';
 
+
 const getAll = (period) => {
     return http.get(`/api/transaction?period=${period}`);
 };
@@ -9,7 +10,7 @@ const get = (id) => {
 };
 
 const create = (data) => {
-    return http.post('/transaction', data);
+    return http.post('/api/transaction', data);
 };
 
 const update = (id, data) => {
@@ -17,7 +18,7 @@ const update = (id, data) => {
 };
 
 const remove = (id) => {
-    return http.delete(`/transaction/${id}`);
+    return http.delete(`/api/transaction/${id}`);
 };
 
 const removeAll = () => {

@@ -24,6 +24,7 @@ import { PERIODS } from '../uteis/periods'
 import { styled, withStyles } from '@material-ui/core/styles';
 import SimpleModal from './simpleModal';
 
+
 const useStyles = makeStyles({
     table: {
         minWidth: 650,
@@ -79,7 +80,16 @@ export default function SimpleTable() {
     const totalIncome = getTotalIncome(transaction)
     const transactionCount = getTransactionCount(transaction)
 
+    const deleteTransaction = ((id) => {
+        TransactionService.remove(id)
+            .then((response) => {
 
+                alert(response.data.message)
+            })
+            .catch((e) => {
+                alert(e)
+            })
+    })
 
     const retrieveTransaction = () => {
         TransactionService.getAll(yearMonth)
@@ -92,6 +102,26 @@ export default function SimpleTable() {
             });
 
     };
+
+    const handleDelete = (e) => {
+
+
+        async function atualizar() {
+            await
+                deleteTransaction(e)
+
+        }
+
+        async function atualizar2() {
+            await
+                retrieveTransaction();
+
+        }
+
+        atualizar()
+        atualizar2()
+
+    }
 
     const MyComponent = styled('div')({
         color: 'green',
@@ -166,7 +196,7 @@ export default function SimpleTable() {
                                     </IconButton>
                                 </StyledTableCell>
                                 <StyledTableCell align="left"><strong fontcolor="#0ff00" >{formatNumber(row.value)}</strong></StyledTableCell>
-                                <StyledTableCell align="left"><EditIcon onClick={() => { }} /> <DeleteForeverIcon /> </StyledTableCell>
+                                <StyledTableCell align="left"><EditIcon /> <DeleteForeverIcon onClick={(e) => { handleDelete(row._id) }} /> </StyledTableCell>
                             </StyledTableRow>
                         ))}
                     </TableBody>
