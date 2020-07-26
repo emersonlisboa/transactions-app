@@ -19,11 +19,13 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 
 import { formatNumber } from '../uteis/formater-helper'
-import { getTotalTransaction, getTotalExpenses, getTotalIncome, getTransactionCount } from '../uteis/reducer'
+import { getTotalExpenses, getTotalIncome, getTransactionCount } from '../uteis/reducer'
 import TransactionService from '../services/TransactionService'
 import { PERIODS } from '../uteis/periods'
 import { styled, withStyles } from '@material-ui/core/styles';
 import SimpleModal from './Modal';
+import { green } from '@material-ui/core/colors';
+import { Typography } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,11 +35,13 @@ const useStyles = makeStyles((theme) => ({
         margin: 0,
     },
     paper: {
-        padding: theme.spacing(2),
+        padding: theme.spacing(0.1),
         textAlign: 'center',
-        color: theme.palette.text.secondary,
-        marginTop: "10px",
+        marginTop: "5px",
+        fontSize: 18,
+
     },
+
 }));
 
 const StyledTableCell = withStyles((theme) => ({
@@ -116,9 +120,22 @@ export default function SimpleTable() {
 
     };
 
+    const MyComponentGreen = styled('div')({
+        color: 'green',
+    });
+
+    const MyComponentRed = styled('div')({
+        color: 'red',
+    });
+
+    const MyComponentBlue = styled('div')({
+        color: 'blue',
+    });
+
     const MyComponent = styled('div')({
         color: 'green',
     });
+
 
     const handleOpen = (e) => {
         alert(e)
@@ -138,44 +155,53 @@ export default function SimpleTable() {
         <div component={Paper}>
             <div >
                 <div className={classes.root}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={3}>
-                            <Paper className={classes.paper}><h2>{transactionCount}</h2></Paper>
+                    <Grid container spacing={1}>
+                        <Grid item xs={12}>
+                            <Paper className={classes.paper} elevation={0} >
+                                <h2>
+                                    <Select value={yearMonth} variant="outlined" onChange={handSelectYearMonth} labelId="label" id="select" className="SelectYear" style={{ width: '450px' }}>
+                                        {PERIODS.map((period) => {
+                                            return (
+                                                <MenuItem key={period} value={period}>
+                                                    {period}
+                                                </MenuItem>
+                                            )
+                                        })}
+                                    </Select>
+                                </h2>
+                            </Paper>
+                        </Grid>
+                        <Grid item xs={1}>
+                            <Paper elevation={0} className={classes.paper}><h2>{transactionCount}</h2></Paper>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <Paper elevation={0} className={classes.paper}><h2>  {formatNumber(totalTransaction)}</h2></Paper>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <Paper elevation={0} className={classes.paper}><MyComponentRed><h2>{formatNumber(totalExpenses)}</h2></MyComponentRed></Paper>
                         </Grid>
                         <Grid item xs={3}>
-                            <Paper className={classes.paper}><h2>  Saldo:{formatNumber(totalTransaction)}</h2></Paper>
+                            <Paper elevation={0} className={classes.paper}><MyComponentGreen> <h2>{formatNumber(totalIncome)}</h2></MyComponentGreen></Paper>
                         </Grid>
-                        <Grid item xs={3}>
-                            <Paper className={classes.paper}><h2>Despesas:{formatNumber(totalExpenses)}</h2></Paper>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Paper className={classes.paper}><h2 fontcolor="#0000" >Receitas:{formatNumber(totalIncome)}</h2></Paper>
-                        </Grid>
+
+
+
+
+
+
                     </Grid>
                 </div>
-                Qtde:
 
 
 
-
-
-            Período:
-            <Select value={yearMonth} onChange={handSelectYearMonth} labelId="label" id="select" className="SelectYear" style={{ width: '200px' }}>
-
-                    {PERIODS.map((period) => {
-                        return (
-                            <MenuItem key={period} value={period}>
-                                {period}
-                            </MenuItem>
-                        )
-                    })}
-                </Select>
-
-            </div>
+            </div >
             <br></br>
             <SimpleChart Expenses={totalExpenses} Income={totalIncome} />
             <br></br>
             <SimpleModal />
+
+
+
             <TextField
                 id="outlined-full-width"
                 label="Filtro Transactions"

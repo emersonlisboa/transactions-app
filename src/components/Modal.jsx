@@ -57,7 +57,7 @@ export default function SimpleModal(props) {
         <div>
 
 
-            <Button variant="contained" onClick={handleOpen}>
+            <Button variant="contained" color="secondary" onClick={handleOpen}>
                 Lançamentos
             </Button>
             <Modal
