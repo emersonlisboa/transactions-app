@@ -42,7 +42,7 @@ export default function LayoutTextFields(props) {
     }
 
     const [transaction, setTransaction] = useState(initialTransactionState)
-    const [submitted, setSubmitted] = useState(false);
+
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -85,10 +85,9 @@ export default function LayoutTextFields(props) {
                     yearMonth: response.data.yearMonth,
                     yearMonthDay: response.data.yearMonthDay
                 });
-                setSubmitted(true);
+
                 setTransaction(initialTransactionState)
-                //console.log(data);
-                // console.log(response.data);
+
                 alert(response.data.message)
             })
             .catch((e) => {
@@ -98,7 +97,7 @@ export default function LayoutTextFields(props) {
 
     const newTransaction = () => {
         setTransaction(initialTransactionState);
-        setSubmitted(false);
+
     };
 
     useEffect(() => {

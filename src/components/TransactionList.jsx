@@ -44,7 +44,6 @@ const TransactionList = () => {
     const [transactionBalance, setTransactionBalance] = useState(0);
 
     useEffect(() => {
-
         retrieveTransaction();
         setTransactionCount(transaction.length)
     }, [yearMonth])
@@ -71,13 +70,10 @@ const TransactionList = () => {
     const classes = useStyles();
     return (
         <div>
-
             <div>
 
                 {transactionCount
                 }
-
-
             </div>
             YEAR-MONTH
             <Select value={yearMonth} onChange={handSelectYearMonth} labelId="label" id="select" className="SelectYear" style={{ width: '200px' }}>

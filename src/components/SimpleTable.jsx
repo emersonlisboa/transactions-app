@@ -14,24 +14,31 @@ import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import SimpleChart from '../components/simpleChart'
-
+import SimpleChart from './chartComponent'
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
 
 import { formatNumber } from '../uteis/formater-helper'
 import { getTotalTransaction, getTotalExpenses, getTotalIncome, getTransactionCount } from '../uteis/reducer'
 import TransactionService from '../services/TransactionService'
 import { PERIODS } from '../uteis/periods'
 import { styled, withStyles } from '@material-ui/core/styles';
-import SimpleModal from './simpleModal';
+import SimpleModal from './Modal';
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     table: {
         minWidth: 650,
         padding: 0,
         margin: 0,
     },
-});
+    paper: {
+        padding: theme.spacing(2),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+        marginTop: "10px",
+    },
+}));
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -50,11 +57,6 @@ const StyledTableRow = withStyles((theme) => ({
         },
     },
 }))(TableRow);
-
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
-
 
 
 export default function SimpleTable() {
@@ -75,7 +77,7 @@ export default function SimpleTable() {
 
     };
 
-    const totalTransaction = getTotalTransaction(transaction)
+    const totalTransaction = getTotalIncome(transaction) - getTotalExpenses(transaction)
     const totalExpenses = getTotalExpenses(transaction)
     const totalIncome = getTotalIncome(transaction)
     const transactionCount = getTransactionCount(transaction)
@@ -83,7 +85,6 @@ export default function SimpleTable() {
     const deleteTransaction = ((id) => {
         TransactionService.remove(id)
             .then((response) => {
-
                 alert(response.data.message)
             })
             .catch((e) => {
@@ -91,11 +92,24 @@ export default function SimpleTable() {
             })
     })
 
+    const filterTransactions = (query) => {
+        return transaction.filter(el => el.description.toLowerCase().indexOf(query.toLowerCase()) > -1)
+    }
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setTransaction(filterTransactions(value))
+
+    };
+
+
+
+
     const retrieveTransaction = () => {
         TransactionService.getAll(yearMonth)
             .then((response) => {
+
                 setTransaction(response.data);
-                //  console.log(response.data);
             })
             .catch((e) => {
                 console.log(e);
@@ -103,47 +117,52 @@ export default function SimpleTable() {
 
     };
 
-    const handleDelete = (e) => {
-
-
-        async function atualizar() {
-            await
-                deleteTransaction(e)
-
-        }
-
-        async function atualizar2() {
-            await
-                retrieveTransaction();
-
-        }
-
-        atualizar()
-        atualizar2()
-
-    }
-
     const MyComponent = styled('div')({
         color: 'green',
     });
 
-    const handleOpen = () => {
-        const modal = <SimpleModal descricao="teste" />
-        return modal
+    const handleOpen = (e) => {
+        alert(e)
+
     }
+
+    const handleDelete = (e) => {
+        deleteTransaction(e)
+        retrieveTransaction();
+    }
+
 
 
 
 
     return (
         <div component={Paper}>
-            <SimpleModal />
-            <br></br>
+
+
             <div >
-                Qtde: {transactionCount}<br></br>
-                Total:  {formatNumber(totalTransaction)} <br></br>
-                Despesas:   {formatNumber(totalExpenses)}<br></br>
-                Receitas:  {formatNumber(totalIncome)}<br></br>
+
+
+                <div className={classes.root}>
+                    <Grid container spacing={3}>
+
+                        <Grid item xs={3}>
+                            <Paper className={classes.paper}><h2>{transactionCount}</h2></Paper>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Paper className={classes.paper}><h2>{formatNumber(totalTransaction)}</h2></Paper>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Paper className={classes.paper}><h2>{formatNumber(totalExpenses)}</h2></Paper>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Paper className={classes.paper}><h2 fontcolor="#0000" ><AddCircleOutlineIcon color='error' />{formatNumber(totalIncome)}</h2></Paper>
+                        </Grid>
+                    </Grid>
+                </div>
+                Qtde:
+                Total:
+                Despesas:
+                Receitas:
 
 
             Período:
@@ -162,7 +181,18 @@ export default function SimpleTable() {
             <br></br>
             <SimpleChart Expenses={totalExpenses} Income={totalIncome} />
             <br></br>
-
+            <SimpleModal />
+            <TextField
+                id="outlined-full-width"
+                label="Filtro Transactions"
+                helperText="Informar a descrição do lançamento"
+                fullWidth
+                margin="normal"
+                onChange={handleInputChange}
+                name="description"
+                value={transaction.description}
+                default
+            />
 
 
             <TableContainer component={Paper}>
@@ -196,7 +226,7 @@ export default function SimpleTable() {
                                     </IconButton>
                                 </StyledTableCell>
                                 <StyledTableCell align="left"><strong fontcolor="#0ff00" >{formatNumber(row.value)}</strong></StyledTableCell>
-                                <StyledTableCell align="left"><EditIcon /> <DeleteForeverIcon onClick={(e) => { handleDelete(row._id) }} /> </StyledTableCell>
+                                <StyledTableCell align="left"><EditIcon onClick={() => { handleOpen(row._id) }} /> <DeleteForeverIcon onClick={(e) => { handleDelete(row._id) }} /> </StyledTableCell>
                             </StyledTableRow>
                         ))}
                     </TableBody>

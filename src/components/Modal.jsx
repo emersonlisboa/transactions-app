@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
-import SimpleForm from './simpleForm'
+import SimpleForm from './transactionForm'
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -32,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleModal(props) {
     const classes = useStyles();
-    //const desc = props.descricao
-    // getModalStyle is not a pure function, we roll the style only on the first render
+    const desc = props.descricao
+    console.log(desc)
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
 
@@ -55,11 +55,11 @@ export default function SimpleModal(props) {
 
     return (
         <div>
-            <br></br>
+
 
             <Button variant="contained" onClick={handleOpen}>
                 Lançamentos
-      </Button>
+            </Button>
             <Modal
                 open={open}
                 onClose={handleClose}
