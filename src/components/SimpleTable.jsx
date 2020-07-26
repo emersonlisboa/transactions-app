@@ -98,17 +98,16 @@ export default function SimpleTable() {
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
+        if (value === "") {
+            retrieveTransaction()
+        }
         setTransaction(filterTransactions(value))
 
     };
 
-
-
-
     const retrieveTransaction = () => {
         TransactionService.getAll(yearMonth)
             .then((response) => {
-
                 setTransaction(response.data);
             })
             .catch((e) => {
@@ -137,32 +136,27 @@ export default function SimpleTable() {
 
     return (
         <div component={Paper}>
-
-
             <div >
-
-
                 <div className={classes.root}>
                     <Grid container spacing={3}>
-
                         <Grid item xs={3}>
                             <Paper className={classes.paper}><h2>{transactionCount}</h2></Paper>
                         </Grid>
                         <Grid item xs={3}>
-                            <Paper className={classes.paper}><h2>{formatNumber(totalTransaction)}</h2></Paper>
+                            <Paper className={classes.paper}><h2>  Saldo:{formatNumber(totalTransaction)}</h2></Paper>
                         </Grid>
                         <Grid item xs={3}>
-                            <Paper className={classes.paper}><h2>{formatNumber(totalExpenses)}</h2></Paper>
+                            <Paper className={classes.paper}><h2>Despesas:{formatNumber(totalExpenses)}</h2></Paper>
                         </Grid>
                         <Grid item xs={3}>
-                            <Paper className={classes.paper}><h2 fontcolor="#0000" ><AddCircleOutlineIcon color='error' />{formatNumber(totalIncome)}</h2></Paper>
+                            <Paper className={classes.paper}><h2 fontcolor="#0000" >Receitas:{formatNumber(totalIncome)}</h2></Paper>
                         </Grid>
                     </Grid>
                 </div>
                 Qtde:
-                Total:
-                Despesas:
-                Receitas:
+
+
+
 
 
             Período:
