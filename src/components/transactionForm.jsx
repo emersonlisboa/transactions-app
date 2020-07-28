@@ -165,7 +165,7 @@ export default function LayoutTextFields(props) {
                     fullWidth
                     style={{ margin: 8 }}
                     margin="normal"
-                    helperText="Valores em BRL R$"
+                    helperText="Valores em [BRL] R$"
                     onChange={handleInputChange}
                     name="value"
                     value={transaction.value}
