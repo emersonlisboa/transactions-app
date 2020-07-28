@@ -151,7 +151,7 @@ export default function LayoutTextFields(props) {
                     label="Categoria"
                     id="outlined-margin-none"
                     fullWidth
-                    helperText="Categoria de lançamento"
+                    helperText="Categoria do lançamento"
                     style={{ margin: 8 }}
                     margin="normal"
                     onChange={handleInputChange}
