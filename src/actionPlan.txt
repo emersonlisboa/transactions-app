@@ -9,13 +9,13 @@ Action Plan - Development
 ( X ) Mostrar os indicadores ( Saldo )
 
 24/07
-(  ) Salvar Lancamentos
-(  ) Alterar Lancamentos
-(  ) Excluir Lancamentos
-(  ) Inserir filtro da pesquisa
-(  ) Renomear Arquivos
-(  ) Formatar Codigos
-(  ) Testes 
-(  ) Publicar APP
-(  ) Recarregar Dados no BD
-(  ) Respoder questionário
+( X ) Salvar Lancamentos
+( X ) Alterar Lancamentos
+( X ) Excluir Lancamentos
+( X ) Inserir filtro da pesquisa
+( X ) Renomear Arquivos
+( X ) Formatar Codigos
+( X ) Testes 
+( X ) Publicar APP
+( X ) Recarregar Dados no BD
+( X ) Respoder questionário
