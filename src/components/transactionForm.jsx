@@ -146,6 +146,7 @@ export default function LayoutTextFields(props) {
                     onChange={handleInputChange}
                     name="description"
                     value={transaction.description}
+                    variant="outlined"
                 />
                 <TextField
                     label="Categoria"
@@ -157,6 +158,7 @@ export default function LayoutTextFields(props) {
                     onChange={handleInputChange}
                     name="category"
                     value={transaction.category}
+                    variant="outlined"
                 />
 
                 <TextField
@@ -169,6 +171,7 @@ export default function LayoutTextFields(props) {
                     onChange={handleInputChange}
                     name="value"
                     value={transaction.value}
+                    variant="outlined"
                 />
 
                 <TextField
